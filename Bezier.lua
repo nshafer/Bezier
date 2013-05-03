@@ -4,7 +4,6 @@ function Bezier:init(options)
 	self.points = {}
 
 	options = options or {}
-	self.radius = options.radius or 6
 	self.lineStyle = options.lineStyle or {1, 0x000000, 1}
 	self.fillStyle = options.fillStyle or {Shape.NONE}
 	self.autoStepScale = options.autoStepScale or .1 -- Higher means more points
@@ -55,19 +54,13 @@ end
 function Bezier:estimateSteps(p1, p2, p3, p4)
 	local distance = 0
 	if p1 and p2 then
-		local dx = p2.x - p1.x
-		local dy = p2.y - p1.y
-		distance = distance + math.sqrt(dx*dx + dy*dy)
+		distance = distance + self:pointDistance(p1, p2)
 	end
 	if p2 and p3 then
-		local dx = p3.x - p2.x
-		local dy = p3.y - p2.y
-		distance = distance + math.sqrt(dx*dx + dy*dy)
+		distance = distance + self:pointDistance(p2, p3)
 	end
 	if p3 and p4 then
-		local dx = p4.x - p3.x
-		local dy = p4.y - p3.y
-		distance = distance + math.sqrt(dx*dx + dy*dy)
+		distance = distance + self:pointDistance(p3, p4)
 	end
 
 	return math.max(1, math.floor(distance * self.autoStepScale))
@@ -105,18 +98,18 @@ function Bezier:bezier3(p1,p2,p3,mu)
 end
 
 function Bezier:bezier4(p1,p2,p3,p4,mu)
-   local mum1,mum13,mu3;
-   local p = {}
+	local mum1,mum13,mu3;
+	local p = {}
 
-   mum1 = 1 - mu
-   mum13 = mum1 * mum1 * mum1
-   mu3 = mu * mu * mu
+	mum1 = 1 - mu
+	mum13 = mum1 * mum1 * mum1
+	mu3 = mu * mu * mu
 
-   p.x = mum13*p1.x + 3*mu*mum1*mum1*p2.x + 3*mu*mu*mum1*p3.x + mu3*p4.x
-   p.y = mum13*p1.y + 3*mu*mum1*mum1*p2.y + 3*mu*mu*mum1*p3.y + mu3*p4.y
-   --p.z = mum13*p1.z + 3*mu*mum1*mum1*p2.z + 3*mu*mu*mum1*p3.z + mu3*p4.z
+	p.x = mum13*p1.x + 3*mu*mum1*mum1*p2.x + 3*mu*mu*mum1*p3.x + mu3*p4.x
+	p.y = mum13*p1.y + 3*mu*mum1*mum1*p2.y + 3*mu*mu*mum1*p3.y + mu3*p4.y
+	--p.z = mum13*p1.z + 3*mu*mum1*mum1*p2.z + 3*mu*mu*mum1*p3.z + mu3*p4.z
 
-   return p	
+	return p	
 end
 
 -- Reduce nodes based on Ramer-Douglas-Peucker algorithm
@@ -168,13 +161,13 @@ function Bezier:douglasPeucker(first, last, epsilon)
 end
 
 function Bezier:pointLineDistance(p, a, b)
-    -- calculates area of the triangle
-    local area = math.abs(0.5 * (a.x * b.y + b.x * p.y + p.x * a.y - b.x * a.y - p.x * b.y - a.x * p.y))
-    -- calculates the length of the bottom edge
-    local dx = a.x - b.x
-    local dy = a.y - b.y
-    local bottom = math.sqrt(dx*dx + dy*dy)
-    -- the triangle's height is also the distance found
-    return area / bottom
+	-- calculates area of the triangle
+	local area = math.abs(0.5 * (a.x * b.y + b.x * p.y + p.x * a.y - b.x * a.y - p.x * b.y - a.x * p.y))
+	-- calculates the length of the bottom edge
+	local dx = a.x - b.x
+	local dy = a.y - b.y
+	local bottom = math.sqrt(dx*dx + dy*dy)
+	-- the triangle's height is also the distance found
+	return area / bottom
 end
 
