@@ -174,7 +174,7 @@ stage:addChildAt(curve2, 1)
 local calcTime = 0
 local drawTime = 0
 local reduceTime = 0
-local status = TextField.new(TTFont.new("NotoSans-Regular.ttf", 12), "Status")
+local status = TextField.new(TTFont.new("extra/NotoSans-Regular.ttf", 12), "Status")
 status:setPosition(5, application:getContentHeight() - 5)
 stage:addChild(status)
 

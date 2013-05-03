@@ -32,7 +32,7 @@ function TextButton:init(text, options)
 	self.downFillColor = options.downFillColor or 0xAAAAEE
 	self.fontSize = options.fontSize or 12
 	
-	self.font = TTFont.new("NotoSans-Regular.ttf", self.fontSize)
+	self.font = TTFont.new("extra/NotoSans-Regular.ttf", self.fontSize)
 	
 	self.up = self:createButton(text, {2, self.upLineColor, 1}, {Shape.SOLID, self.upFillColor, 1})
 	self.down = self:createButton(text, {2, self.upLineColor, 1}, {Shape.SOLID, self.downFillColor, 1})
