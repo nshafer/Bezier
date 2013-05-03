@@ -108,7 +108,7 @@ function onStepsComplete(event)
 end
 
 function onStepsButtonUp(event)
-	local stepsInput = TextInputDialog.new("Steps", "Enter number of steps", steps or "auto", "Cancel", "Set")
+	local stepsInput = TextInputDialog.new("Steps", "Enter number of steps (or 'auto')", steps or "auto", "Cancel", "Set")
 	stepsInput:addEventListener(Event.COMPLETE, onStepsComplete)
 	stepsInput:show()
 end
