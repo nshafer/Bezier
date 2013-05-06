@@ -51,6 +51,7 @@ Parameters:
 
 ###Bezier:setAutoStepScale(scale)
 Sets the factor used to estimate the number of steps to use if none are explicitly given.  The formula is:
+
 	d1 = distance between p1 and p2
 	d2 = distance between p2 and p3
 	d3 = distance between p3 and p4
