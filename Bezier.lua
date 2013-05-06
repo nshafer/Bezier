@@ -22,17 +22,25 @@
 
 Bezier = Core.class(Shape)
 
-function Bezier:init(options)
+function Bezier:init()
 	self.points = {}
-
-	options = options or {}
-	self.lineStyle = options.lineStyle or {1, 0x000000, 1}
-	self.fillStyle = options.fillStyle or {Shape.NONE}
-	self.autoStepScale = options.autoStepScale or .1 -- Higher means more points
+	self.autoStepScale = .1
 end
 
 function Bezier:getPoints()
 	return self.points
+end
+
+function Bezier:setPoints(points)
+	self.points = points
+end
+
+function Bezier:setAutoStepScale(scale)
+	self.autoStepScale = scale
+end
+
+function Bezier:getAutoStepScale()
+	return self.autoStepScale
 end
 
 function Bezier:pointDistance(p1, p2)
@@ -56,10 +64,6 @@ function Bezier:getLength()
 end
 
 function Bezier:draw(isClosed)
-	self:clear()
-	self:setLineStyle(unpack(self.lineStyle))
-	self:setFillStyle(unpack(self.fillStyle))
-
 	self:beginPath()
 
 	for i,point in ipairs(self.points) do

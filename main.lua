@@ -163,10 +163,10 @@ layout:addSprite(epsilonButton)
 
 
 -- Create our Bezier curves
-local curve = Bezier.new{lineStyle = {1, 0x2e6d94, 1}}
+local curve = Bezier.new()
 stage:addChild(curve)
 
-local curve2 = Bezier.new{lineStyle = {40, 0x7cbe7c, 1}}
+local curve2 = Bezier.new()
 stage:addChildAt(curve2, 1)
 
 
@@ -227,6 +227,14 @@ function updateCurve()
 		reduceTime = os.timer() - startTime
 		curve2:reduce(epsilon)
 	end
+
+	-- Clear any existing drawn path
+	curve:clear()
+	curve2:clear()
+
+	-- Set style
+	curve:setLineStyle(1, 0x2e6d94, 1)
+	curve2:setLineStyle(40, 0x7cbe7c, 1)
 
 	-- Draw the curve
 	startTime = os.timer()
