@@ -1,3 +1,6 @@
+-- Bezier
+-- https://github.com/nshafer/Bezier
+
 -- The MIT License (MIT)
 
 -- Copyright (c) 2013 Nathan Shafer
